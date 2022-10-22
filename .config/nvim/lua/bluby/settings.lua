@@ -21,3 +21,6 @@ vim.opt.mouse = ""
 
 -- Enable indent fold because it works and is easy
 vim.opt.foldmethod = "indent"
+
+-- Enable guicolors because pretty
+vim.opt.termguicolors = true
