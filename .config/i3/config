@@ -199,8 +199,6 @@ bindsym $mod+Escape exec i3lock -c 000000
 bindsym $mod+p mode "$power"
 
 mode "$power" {
-    # this one is really important
-
     set $fwd period
     set $bwd comma
     bindsym $mod+p mode "default"
@@ -220,6 +218,6 @@ mode "$power" {
     bindsym Ctrl+$fwd --release exec "xdotool key Tab "
     bindsym $bwd --release exec "xdotool key Shift+Tab --clearmodifiers "
     bindsym Ctrl+$bwd --release exec "xdotool key Shift+Tab "
-    bindsym a --release exec "xdotool key Enter --clearmodifiers "
+    bindsym a --release exec "xdotool key Return --clearmodifiers "
     bindsym q --release exec "xdotool key Escape --clearmodifiers "
 }
