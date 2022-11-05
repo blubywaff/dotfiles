@@ -191,11 +191,17 @@ bar {
 
 # Workspace Bindings
 # Status/Communications
-workspace $ws1 output DP-3
+workspace $ws1 output DP-1
 # General/Machine control
 workspace $ws2 output DP-2
 # Personal research/media
-workspace $ws3 output DP-1
+workspace $ws3 output DP-3
+# Work Main
+workspace $ws4 output DP-2
+# Work Research
+workspace $ws5 output DP-3
+# Free Space Left
+workspace $ws6 output DP-1
 
 focus_follows_mouse no
 
