@@ -8,5 +8,4 @@ end
 optreq('bluby.packer')
 
 optreq('treesitter-context')
-optreq('bluby.coc')
 
