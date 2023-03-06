@@ -4,7 +4,6 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
 	'eslint',
-	'sumneko_lua',
 	'rust_analyzer',
 })
 
@@ -18,7 +17,12 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 lsp.set_preferences({
-	sign_icons = { }
+	sign_icons = {
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = 'ⓘ'
+    }
 })
 
 lsp.setup_nvim_cmp({
@@ -26,6 +30,7 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.on_attach(function(client, bufnr)
+    vim.opt.foldmethod = "syntax"
 	local opts = {buffer = bufnr, remap = false}
 	vim.keymap.set("n", "<leader>lgd", function() vim.lsp.buf.definition() end, opts)
 	vim.keymap.set("n", "<leader>lh", function() vim.lsp.buf.hover() end, opts)

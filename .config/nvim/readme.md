@@ -18,5 +18,10 @@
 - [`<leader>lvr`](after/plugin/lsp.lua) = LSP view references
 - [`<leader>lac`](after/plugin/lsp.lua) = LSP code action
 - [`<leader>lan`](after/plugin/lsp.lua) = LSP rename
+- [`<leader>ws`[v|h]](lua/blubywaff/remap.lua) = Split window
+- [`<leader>wn`[v|h]](lua/blubywaff/remap.lua) = New window
+- [`<leader>wo`[v|h]](lua/blubywaff/remap.lua) = Make only
+- [`<leader>wo!`[v|h]](lua/blubywaff/remap.lua) = Force make only
+- [`<leader>w`[h|j|k|l]](lua/blubywaff/remap.lua) = Move window cursor
 
 

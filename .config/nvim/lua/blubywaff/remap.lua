@@ -1,4 +1,23 @@
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>nx", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>wsv", function () vim.cmd("vs") end)
+vim.keymap.set("n", "<leader>wsh", function () vim.cmd("sp") end)
+vim.keymap.set("n", "<leader>wnh", function () vim.cmd("new") end)
+vim.keymap.set("n", "<leader>wnv", function () vim.cmd("vnew") end)
+vim.keymap.set("n", "<leader>wo", function () vim.cmd("on") end)
+vim.keymap.set("n", "<leader>wo!", function () vim.cmd("on!") end)
+vim.keymap.set("n", "<leader>wh", function () vim.cmd("winc h") end)
+vim.keymap.set("n", "<leader>wj", function () vim.cmd("winc j") end)
+vim.keymap.set("n", "<leader>wk", function () vim.cmd("winc k") end)
+vim.keymap.set("n", "<leader>wl", function () vim.cmd("winc l") end)
+vim.keymap.set("n", "<leader>wH", function () vim.cmd("winc H") end)
+vim.keymap.set("n", "<leader>wJ", function () vim.cmd("winc J") end)
+vim.keymap.set("n", "<leader>wK", function () vim.cmd("winc K") end)
+vim.keymap.set("n", "<leader>wL", function () vim.cmd("winc L") end)
+vim.keymap.set("n", "<leader>tn", function () vim.cmd("tabnew") end)
+vim.keymap.set("n", "<leader>tl", function () vim.cmd("tabn") end)
+vim.keymap.set("n", "<leader>th", function () vim.cmd("tabp") end)
+vim.keymap.set("n", "<leader>tH", function () vim.cmd("-tabm") end)
+vim.keymap.set("n", "<leader>tL", function () vim.cmd("+tabm") end)
 
