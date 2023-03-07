@@ -1,0 +1,8 @@
+config() {
+    base="/usr/bin/git --git-dir=$HOME/.config/.cfg/.git --work-tree=$HOME"
+    if [[ $@ == "status" ]]; then
+        command $base status -uno
+        return
+    fi
+    command $base "$@"
+}
