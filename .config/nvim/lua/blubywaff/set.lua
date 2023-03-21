@@ -23,3 +23,10 @@ vim.opt.sidescrolloff = 8
 
 -- Mouse is annoying
 vim.opt.mouse = ""
+
+-- To avoid jittery margin with lsp
+vim.opt.signcolumn = "yes"
+
+-- Fold method to use treesitter (most reliable)
+vim.opt.foldmethod = "expr"
+vim.cmd [[ set foldexpr=nvim_treesitter#foldexpr() ]]
