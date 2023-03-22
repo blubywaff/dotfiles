@@ -8,6 +8,7 @@
 - [`<leader>sf`](after/plugin/telescope.lua) = Fuzzy find files
 - [`<leader>sg`](after/plugin/telescope.lua) = Fuzzy find git files
 - [`<leader>ss`](after/plugin/telescope.lua) = String search
+- [`<leader>so`](after/plugin/symbols-outline.lua) = Toggle Symbols Outline
 - [`<leader>lh`](after/plugin/lsp.lua) = LSP Hover
 - [`<leader>ldf`](after/plugin/lsp.lua) = LSP diagnostic float
 - [`<leader>ldn`](after/plugin/lsp.lua) = LSP diagnostic next
