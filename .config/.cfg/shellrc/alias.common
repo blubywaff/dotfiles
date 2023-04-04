@@ -1,8 +1,65 @@
+#!/bin/bash
+
+git() {
+    base="/usr/bin/git"
+    noshift="false"
+    is_verbose="false"
+    until [ -z $1 ]; do
+        if [[ "$1" == "--blub-v" ]]; then
+            is_verbose="true"
+            shift
+            continue
+        fi
+        if [[ "$1" == "--blub-shift" ]]; then
+            sn=$2
+            shift 2
+            for (( c=1; c <= $sn; c++ )); do
+                base="$base ${!c}"
+            done
+            shift $sn
+            continue
+        fi
+        break
+    done
+    case $1 in
+        "st")
+            base="$base status"
+            ;;
+        "stu")
+            base="$base status -uno"
+            ;;
+        "lg")
+            base="$base log --format=format:\"%C(green)%h %C(auto)%G? %C(auto)%<(12,trunc)%cn %C(blue)%>>(10,trunc)%ar %C(reset)%s\""
+            ;;
+        "ci")
+            base="$base commit -S -m"
+            ;;
+        *)
+            noshift="true"
+            ;;
+    esac
+    if [[ "$noshift" == "false" ]]; then
+        shift
+    fi
+    # Create new full new command excluding shifted
+    for i; do
+        base="$base $i"
+    done
+    if [[ "$is_verbose" == "true" ]]; then
+        echo "$base"
+    fi
+    eval "$base"
+}
+
 config() {
-    base="/usr/bin/git --git-dir=$HOME/.config/.cfg/.git-dir --work-tree=$HOME"
-    if [[ $@ == "status" ]]; then
-        command $base status -uno
+    base=( "--blub-shift" "2" "--git-dir=$HOME/.config/.cfg/.git-dir" "--work-tree=$HOME" )
+    if [[ "$@" == "status" ]]; then
+        git "$base" status -uno
         return
     fi
-    command $base "$@"
+    if [[ "$@" == "reload" ]]; then
+        command source /home/alex/.config/.cfg/shellrc/*.common
+        return
+    fi
+    git ${base[@]} "$@"
 }
