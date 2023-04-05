@@ -15,7 +15,10 @@ _gitbranch() {
     if [ -z $branch ]; then
         return
     fi
-    if ! [ -z "$(git status --porcelain)" ]; then
+    gst="$(2>&1 timeout -v 0.2s git status --porcelain)"
+    if ! [ -z "$(echo "$gst" | grep "timeout: sending signal" | sed -z "s/\n//g")" ]; then
+        dirt="$color_dirt?$color_regular"
+    elif ! [ -z "$gst" ]; then
         dirt="$color_dirt+$color_regular"
     fi
     if [[ $branch = "HEAD" ]]; then
@@ -38,7 +41,6 @@ _pwd() {
     echo -n "$root${arr[-1]}"
 }
 _PS1() {
-    echo -nE "$(_concat "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">")"
+    echo -nE "$(_concat "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">") "
 }
-# PS1="$(_concat "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">") "
 PS1=$(_PS1)
