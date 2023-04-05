@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git() {
-    base="/usr/bin/git"
+    base=( "/usr/bin/git" )
     noshift="false"
     is_verbose="false"
     until [ -z $1 ]; do
@@ -14,7 +14,7 @@ git() {
             sn=$2
             shift 2
             for (( c=1; c <= $sn; c++ )); do
-                base="$base ${!c}"
+                base+=( "${!c}" )
             done
             shift $sn
             continue
@@ -23,16 +23,16 @@ git() {
     done
     case $1 in
         "st")
-            base="$base status"
+            base+=( "status" )
             ;;
         "stu")
-            base="$base status -uno"
+            base+=( "status" "-uno" )
             ;;
         "lg")
-            base="$base log --format=format:\"%C(green)%h %C(auto)%G? %C(auto)%<(12,trunc)%cn %C(blue)%>>(10,trunc)%ar %C(reset)%s\""
+            base+=( "log" "--format=format:%C(green)%h %C(auto)%G? %C(auto)%<(12,trunc)%cn %C(blue)%>(14,trunc)%ar %C(reset)%s" )
             ;;
         "ci")
-            base="$base commit -S -m"
+            base+=( "commit" "-S" "-m" )
             ;;
         *)
             noshift="true"
@@ -43,23 +43,29 @@ git() {
     fi
     # Create new full new command excluding shifted
     for i; do
-        base="$base $i"
+        base+=( "$i" )
     done
     if [[ "$is_verbose" == "true" ]]; then
-        echo "$base"
+        echo "${base[@]}"
     fi
-    eval "$base"
+    command "${base[@]}"
 }
 
 config() {
     base=( "--blub-shift" "2" "--git-dir=$HOME/.config/.cfg/.git-dir" "--work-tree=$HOME" )
-    if [[ "$@" == "status" ]]; then
-        git "$base" status -uno
-        return
-    fi
     if [[ "$@" == "reload" ]]; then
-        command source /home/alex/.config/.cfg/shellrc/*.common
+        for i in /home/alex/.config/.cfg/shellrc/*.common; do
+            command source "$i"
+        done
         return
     fi
-    git ${base[@]} "$@"
+    git "${base[@]}" "$@"
+}
+
+argtest() {
+    echo $@
+    until [ -z "$1" ]; do
+        echo $1
+        shift
+    done
 }

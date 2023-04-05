@@ -1,0 +1,44 @@
+#!/bin/bash
+_concat() {
+    base=""
+    for i in "$@"; do
+        base="$base$i"
+    done
+    echo $base
+}
+_gitbranch() {
+    color_regular="\001\e[38;5;69m\002"
+    color_detached="\001\e[38;5;196m\002"
+    color_dirt="\001\e[38;5;190m\002"
+    branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo "")
+    dirt=""
+    if [ -z $branch ]; then
+        return
+    fi
+    if ! [ -z "$(git status --porcelain)" ]; then
+        dirt="$color_dirt+$color_regular"
+    fi
+    if [[ $branch = "HEAD" ]]; then
+        echo -ne "$color_detached($(git rev-parse --short HEAD)$dirt)"
+        return
+    fi
+    echo -ne "$color_regular($branch$dirt)"
+}
+_pwd() {
+    base="$(pwd -P)"
+    root="!"
+    if [[ $base = $HOME* ]]; then
+        root=""
+    fi
+    if [[ $base = $HOME ]]; then
+        echo -n "~"
+        return
+    fi
+    IFS='/' read -ra arr <<< "$(pwd -P)"
+    echo -n "$root${arr[-1]}"
+}
+_PS1() {
+    echo -nE "$(_concat "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">")"
+}
+# PS1="$(_concat "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">") "
+PS1=$(_PS1)
