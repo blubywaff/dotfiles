@@ -2,6 +2,10 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
+require('lspconfig').clangd.setup({
+    cmd={'-header-insertion=never'}
+})
+
 local cmp = require('cmp')
 local cmp_select = {behaviour = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
