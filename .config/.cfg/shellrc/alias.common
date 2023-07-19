@@ -66,6 +66,19 @@ config() {
     git "${base[@]}" "$@"
 }
 
+cd() {
+    builtin cd $@
+    command ls -A --color=auto
+}
+
+gpp() {
+    g++ -std=c++23 -Wall -g -pedantic -Weffc++ -pthread "$@"
+}
+
+mpv() {
+    command mpv --image-display-duration=inf --keep-open=always --loop-file=inf "$@"
+}
+
 argtest() {
     echo $@
     until [ -z "$1" ]; do
