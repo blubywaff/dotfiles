@@ -2,7 +2,9 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-require('lspconfig').clangd.setup({
+local lspconfig = require('lspconfig')
+
+lspconfig.clangd.setup({
     cmd={'-header-insertion=never'}
 })
 
@@ -25,7 +27,11 @@ lsp.set_preferences({
 })
 
 lsp.setup_nvim_cmp({
-	mappings = cmp_mappings
+	mappings = cmp_mappings,
+    preselect = 'none',
+    completion = {
+        completeopt = 'menu,menuone,noinsert,noselect'
+    },
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -39,6 +45,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>lac", function() vim.lsp.buf.code_action() end, opts)
 	vim.keymap.set("n", "<leader>lvr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>lan", function() vim.lsp.buf.rename() end, opts)
+	vim.keymap.set("n", "<leader>laf", function() vim.lsp.buf.format() end, opts)
 	vim.keymap.set("n", "<leader>lvh", function() vim.lsp.buf.signature_help() end, opts)
 end)
 

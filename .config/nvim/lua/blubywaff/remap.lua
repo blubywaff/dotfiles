@@ -20,4 +20,12 @@ vim.keymap.set("n", "<leader>tl", function () vim.cmd("tabn") end)
 vim.keymap.set("n", "<leader>th", function () vim.cmd("tabp") end)
 vim.keymap.set("n", "<leader>tH", function () vim.cmd("-tabm") end)
 vim.keymap.set("n", "<leader>tL", function () vim.cmd("+tabm") end)
+vim.keymap.set("n", "<leader>u", function () vim.cmd("UndotreeToggle"); vim.cmd("UndotreeFocus") end)
 
+vim.keymap.set("n", "<c-u>", "<c-u>zz")
+vim.keymap.set("n", "<c-d>", "<c-d>zz")
+
+vim.cmd [[nnoremap <expr> j v:count ? 'j' : 'gj']]
+vim.cmd [[nnoremap <expr> k v:count ? 'k' : 'gk']]
+
+vim.keymap.set("i", "<c-BS>", "<c-o>b<c-o>dw")
