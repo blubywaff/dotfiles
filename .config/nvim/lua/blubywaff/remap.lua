@@ -29,3 +29,18 @@ vim.cmd [[nnoremap <expr> j v:count ? 'j' : 'gj']]
 vim.cmd [[nnoremap <expr> k v:count ? 'k' : 'gk']]
 
 vim.keymap.set("i", "<c-BS>", "<c-o>b<c-o>dw")
+
+-- Print warning for lsp keybinds when not attached.
+local warnf = function() print("LSP not attached!") end
+local opts = {}
+vim.keymap.set("n", "<leader>lgd", warnf, opts)
+vim.keymap.set("n", "<leader>lh", warnf, opts)
+vim.keymap.set("n", "<leader>lvs", warnf, opts)
+vim.keymap.set("n", "<leader>ldf", warnf, opts)
+vim.keymap.set("n", "<leader>ldn", warnf, opts)
+vim.keymap.set("n", "<leader>ldp", warnf, opts)
+vim.keymap.set("n", "<leader>lac", warnf, opts)
+vim.keymap.set("n", "<leader>lvr", warnf, opts)
+vim.keymap.set("n", "<leader>lan", warnf, opts)
+vim.keymap.set("n", "<leader>laf", warnf, opts)
+vim.keymap.set("n", "<leader>lvh", warnf, opts)
