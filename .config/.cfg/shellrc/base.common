@@ -22,7 +22,7 @@ _gitbranch() {
         dirt="$color_dirt+$color_regular"
     fi
     if [[ $branch = "HEAD" ]]; then
-        echo -ne "$color_detached($(git rev-parse --short HEAD)$dirt)"
+        echo -ne "$color_detached($(git rev-parse --short HEAD 2> /dev/null)$dirt)"
         return
     fi
     echo -ne "$color_regular($branch$dirt)"

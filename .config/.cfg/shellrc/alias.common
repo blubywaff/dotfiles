@@ -67,7 +67,7 @@ config() {
 }
 
 cd() {
-    builtin cd $@
+    builtin cd "$@"
     command ls -A --color=auto
 }
 
