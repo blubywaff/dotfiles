@@ -1,4 +1,30 @@
 #!/bin/bash
+# ^^^^^^^^^ only present for editor hint
+# file should not be executed
+
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+HISTCONTROL=ignoreboth
+
+shopt -s checkwinsize
+shopt -s globstar
+
+# Just because I'm too lazy to configure kitty
+if [ $TERM = xterm-kitty ]; then
+    export TERM=xterm
+fi
+
+# Shamelessly stolen from default bashrc on Ubuntu 22.04
+# enables programmable completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 _concat() {
     base=""
     for i in "$@"; do
@@ -6,6 +32,7 @@ _concat() {
     done
     echo $base
 }
+
 _gitbranch() {
     color_regular="\001\e[38;5;69m\002"
     color_detached="\001\e[38;5;196m\002"
@@ -27,6 +54,7 @@ _gitbranch() {
     fi
     echo -ne "$color_regular($branch$dirt)"
 }
+
 _pwd() {
     base="$(pwd -P)"
     root="!"
@@ -40,9 +68,11 @@ _pwd() {
     IFS='/' read -ra arr <<< "$(pwd -P)"
     echo -n "$root${arr[-1]}"
 }
+
 _PS1() {
     echo -nE "$(_concat "\[\e]0;\u:\w\007\]" "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">") "
 }
+
 PS1="$(_PS1)"
 
-export PATH="$PATH:$HOME/appimages/"
+# export PATH="$PATH:$HOME/appimages/"

@@ -1,4 +1,6 @@
 #!/bin/bash
+# ^^^^^^^^^ only present for editor hint
+# file should not be executed
 
 git() {
     base=( "/usr/bin/git" )
@@ -58,9 +60,8 @@ git() {
 config() {
     base=( "--blub-shift" "2" "--git-dir=$HOME/.config/.cfg/.git-dir" "--work-tree=$HOME" )
     if [[ "$@" == "reload" ]]; then
-        for i in /home/alex/.config/.cfg/shellrc/*.common; do
-            command source "$i"
-        done
+        $HOME/.config/.cfg/shellrc/construct.sh
+        source $HOME/.bashrc
         return
     fi
     git "${base[@]}" "$@"
@@ -79,10 +80,6 @@ mpv() {
     command mpv --image-display-duration=inf --keep-open=always --loop-file=inf "$@"
 }
 
-argtest() {
-    echo $@
-    until [ -z "$1" ]; do
-        echo $1
-        shift
-    done
-}
+
+alias ls='ls -A --color=auto'
+alias grep='grep --color=auto'
