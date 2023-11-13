@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Make sure we always start in the correct place
-self_root="$HOME/.config/.cfg/suite/aseprite/"
+self_root="$HOME/.local/src/aseprite/"
 cd "$self_root"
 
 # Install build dependencies
@@ -32,13 +32,13 @@ gn gen out/Release-x64 --args='is_debug=false is_official_build=true skia_use_sy
 ninja -C out/Release-x64 skia modules
 
 cd "$self_root"
-git clone --recursive git@github.com:aseprite/aseprite repo
-cd repo
+git clone --recursive git@github.com:aseprite/aseprite aseprite
+cd aseprite
 git pull
 git checkout "$(git tag -l --sort=refname | grep -v beta | tail -1)"
 git submodule update --init --recursive
 
-cd "$self_root/repo"
+cd "$self_root/aseprite"
 mkdir build
 cd build
 export CC=clang
@@ -56,3 +56,6 @@ cmake \
   -G Ninja \
   ..
 ninja aseprite
+
+# Create executable link
+ln -s $self_root/aseprite/build/bin/aseprite $HOME/.local/bin/aseprite
