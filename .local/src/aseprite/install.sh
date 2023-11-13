@@ -58,4 +58,4 @@ cmake \
 ninja aseprite
 
 # Create executable link
-ln -s $self_root/aseprite/build/bin/aseprite $HOME/.local/bin/aseprite
+ln -sf $self_root/aseprite/build/bin/aseprite $HOME/.local/bin/aseprite
