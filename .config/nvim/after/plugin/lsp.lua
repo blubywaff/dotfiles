@@ -12,6 +12,10 @@ lspconfig.racket_langserver.setup{
     cmd={'racket', '-l', 'racket-langserver'}
 }
 
+lspconfig.tsserver.setup({
+    cmd = {'npx', '--', 'typescript-language-server', '--stdio'}
+})
+
 local cmp = require('cmp')
 local cmp_select = {behaviour = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
