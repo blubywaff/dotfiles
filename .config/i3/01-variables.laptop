@@ -4,4 +4,4 @@ set $font_size 10
 exec xset s off
 # change dpms timings 5 min to turn off screen, 15 min to suspend
 exec xset dpms 300 900 0
-exec "xinput set-prop 10 325 1 && xinput set-prop 10 333 1"
+exec "xinput set-prop 10 324 1 && xinput set-prop 10 332 1"
