@@ -1,3 +1,3 @@
 setlocal wrap linebreak
-set ignorecase
-set smartcase
+setlocal ignorecase
+setlocal smartcase

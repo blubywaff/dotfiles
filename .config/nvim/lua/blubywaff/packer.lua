@@ -52,4 +52,5 @@ return require('packer').startup(function(use)
 		  {'rafamadriz/friendly-snippets'},
 	  }
   }
+  use('mfussenegger/nvim-jdtls')
 end)
