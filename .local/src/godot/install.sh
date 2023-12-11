@@ -26,7 +26,13 @@ git_rev="$(git tag -l --sort=refname | grep stable | tail -1)"
 git checkout "$git_rev"
 
 # Create editor binary
-scons platform=linuxbsd lto=full target=editor production=yes
+scons platform=linuxbsd lto=full target=editor production=yes module_mono_enabled=yes
+
+# Generate .NET glue
+./bin/*editor* --headless --generate-mono-glue modules/mono/glue
+
+# Build Managed Libraries
+./modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin
 
 # Create link so that editor appears in path
 ln -sf $self_root/godot/bin/*editor* $HOME/.local/bin/godot
