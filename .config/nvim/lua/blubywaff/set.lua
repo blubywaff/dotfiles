@@ -31,3 +31,8 @@ vim.opt.signcolumn = "yes"
 -- Fold method to use treesitter (most reliable)
 vim.opt.foldmethod = "expr"
 vim.cmd [[ set foldexpr=nvim_treesitter#foldexpr() ]]
+
+-- listchars=eol:§,tab:¤›,extends:»,precedes:«,nbsp:‡,trail:×
+vim.cmd [[ set listchars=tab:¤›,extends:»,precedes:«,nbsp:‡,trail:× ]]
+vim.cmd [[ set list ]]
+-- vim.cmd [[ set fileformats=unix ]]

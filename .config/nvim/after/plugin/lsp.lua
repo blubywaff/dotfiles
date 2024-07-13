@@ -1,11 +1,12 @@
 local lsp = require("lsp-zero")
+lsp.extend_lspconfig()
 
 lsp.preset("recommended")
 
 local lspconfig = require('lspconfig')
 
 lspconfig.clangd.setup({
-    cmd={'-header-insertion=never'}
+    cmd={'/usr/bin/clangd', '-header-insertion=never'}
 })
 
 lspconfig.racket_langserver.setup{
@@ -18,12 +19,6 @@ lspconfig.tsserver.setup({
 
 local cmp = require('cmp')
 local cmp_select = {behaviour = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y'] = cmp.mapping.confirm({ select = true }),
-	['<C-Space'] = cmp.mapping.complete(),
-})
 
 lsp.set_preferences({
 	sign_icons = {
@@ -34,12 +29,21 @@ lsp.set_preferences({
     }
 })
 
-lsp.setup_nvim_cmp({
-	mappings = cmp_mappings,
-    preselect = 'none',
-    completion = {
-        completeopt = 'menu,menuone,noinsert,noselect'
-    },
+local cmp_mappings = lsp.defaults.cmp_mappings({
+	-- ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+	['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+	-- ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+	['Tab'] = cmp.mapping.select_next_item(cmp_select),
+	-- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+	['Enter'] = cmp.mapping.confirm({ select = true }),
+	-- ['<C-Space>'] = cmp.mapping.complete(),
+})
+
+cmp.setup({
+    mapping = cmp.mapping.preset.insert(cmp_mappings),
+    sources = {
+        {name = 'nvim_lsp'}
+    }
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -61,4 +65,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-lsp.setup()
+require('mason').setup()
+require('mason-lspconfig').setup({
+    ensure_installed = {},
+    handlers = {
+        lsp.default_setup,
+        lua_ls = function()
+            local lua_opts = lsp.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+        end,
+    },
+})

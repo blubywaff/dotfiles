@@ -1,5 +1,7 @@
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 vim.keymap.set("n", "<leader>nx", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>wsv", function () vim.cmd("vs") end)
 vim.keymap.set("n", "<leader>wsh", function () vim.cmd("sp") end)
