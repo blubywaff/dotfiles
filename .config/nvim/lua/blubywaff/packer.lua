@@ -25,9 +25,11 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-	"nvim-telescope/telescope.nvim",
-	-- version = "0.1.0",
-	dependencies = {"nvim-lua/plenary.nvim"},
+      {
+          "nvim-telescope/telescope.nvim",
+          -- version = "0.1.0",
+          dependencies = {"nvim-lua/plenary.nvim"},
+      },
 
 	-- Colorschemes
 	"b4skyx/serenade",
