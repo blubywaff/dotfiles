@@ -16,7 +16,8 @@ sudo apt-get install -y \
   libpulse-dev \
   libudev-dev \
   libxi-dev \
-  libxrandr-dev
+  libxrandr-dev \
+  dotnet6
 
 git clone git@github.com:godotengine/godot.git godot
 cd godot

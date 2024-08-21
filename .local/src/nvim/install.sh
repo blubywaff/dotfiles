@@ -11,8 +11,12 @@ cd neovim
 git checkout stable
 
 # Maximum optimization, minimum debug
-make CMAKE_BUILD_TYPE=Release
+# Make install user local instead of system wide
+make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.local"
 
 # packages as deb for easier removal
 # This is a special case, being installed into the system
-cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
+# cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
+
+# Install just for user, this avoids requiring superuser (still have to worry about apt above)
+make install
