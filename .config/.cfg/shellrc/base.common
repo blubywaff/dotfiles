@@ -75,4 +75,4 @@ _PS1() {
 
 PS1="$(_PS1)"
 
-# export PATH="$PATH:$HOME/appimages/"
+export PATH="$PATH:$HOME/.local/bin"
