@@ -73,6 +73,6 @@ _PS1() {
     echo -nE "$(_concat "\[\e]0;\u:\w\007\]" "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">") "
 }
 
-PS1="$(_PS1)"
+export PS1="$(_PS1)"
 
 export PATH="$PATH:$HOME/.local/bin"
