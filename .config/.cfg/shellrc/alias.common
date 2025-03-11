@@ -28,10 +28,14 @@ mpv() {
 git() {
     case $1 in
         "top")
-            cd "(git rev-parse --show-toplevel)"
+            cd "$(command git rev-parse --show-toplevel)"
             ;;
         "ministat")
             ;;
+        *)
+            command git "$@"
+            ;;
+    esac
 }
 
 

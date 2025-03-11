@@ -10,11 +10,6 @@ HISTCONTROL=ignoreboth
 shopt -s checkwinsize
 shopt -s globstar
 
-# Just because I'm too lazy to configure kitty
-if [ $TERM = xterm-kitty ]; then
-    export TERM=xterm
-fi
-
 # Shamelessly stolen from default bashrc on Ubuntu 22.04
 # enables programmable completion
 if ! shopt -oq posix; then
@@ -24,14 +19,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-_concat() {
-    base=""
-    for i in "$@"; do
-        base="$base$i"
-    done
-    echo $base
-}
 
 _gitbranch() {
     color_regular="\001\e[38;5;69m\002"
@@ -55,24 +42,35 @@ _gitbranch() {
     echo -ne "$color_regular($branch$dirt)"
 }
 
-_pwd() {
-    base="$(pwd -P)"
-    root="!"
-    if [[ $base = $HOME* ]]; then
-        root=""
+_cpos() {
+    ttysets="$(stty -g)"
+    stty -icanon -echo
+    echo -ne '\e[6n' > /dev/tty
+    IFS=';' read -s -d R -p '' ROW COL < /dev/tty
+    stty ${ttysets}
+}
+
+_optlf() {
+    if [ $COL != 1 ]; then
+        echo -ne "\n\\"
+    else
+        echo -ne " "
     fi
-    if [[ $base = $HOME ]]; then
-        echo -n "~"
-        return
-    fi
-    IFS='/' read -ra arr <<< "$(pwd -P)"
-    echo -n "$root${arr[-1]}"
 }
 
 _PS1() {
-    echo -nE "$(_concat "\[\e]0;\u:\w\007\]" "\[\e[1m\]" "\[\e[38;5;6m\]" "\u[\j]" "\[\e[38;5;40m\]" "\$(_pwd)" "\[\e[38;5;69m\]" "\$(_gitbranch)" "\[\e[0m\]" ">") "
+    echo -nE '$(_optlf)'
+    echo -nE '\[\e7$(printf "%*s" $( echo -e "$COLUMNS - 1" | bc ) "$(date "+%F %T")")\e8\]'
+    echo -nE '\[\e[1m\]\[\e[38;5;6m\]\u@\H'
+    echo -nE '\[\e[0m\][\j]'
+    echo -nE '\[\e[38;5;40m\]\w\[\e[0m\]'
+    echo -nE '\n'
+    echo -nE '$(_gitbranch)'
+    echo -nE '\[\e[0m\]\$ '
 }
 
-export PS1="$(_PS1)"
+PROMPT_COMMAND=_cpos
+
+PS1="$(_PS1)"
 
 export PATH="$PATH:$HOME/.local/bin"
