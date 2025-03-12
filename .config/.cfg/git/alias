@@ -1,5 +1,0 @@
-[alias]
-    st = status
-    stu = status -uno
-    lg = log '--format=format:%C(green)%h %C(auto)%G? %C(auto)%<(12,trunc)%cn %C(blue)%>(14,trunc)%ar %C(reset)%s'
-    ci = commit
