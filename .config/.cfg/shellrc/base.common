@@ -58,9 +58,60 @@ _optlf() {
     fi
 }
 
+_PRE_PROMPT() {
+    _cpos
+
+    # working directory as displayed by \w
+    wd=${PWD/$HOME/\~}
+    # number of parts in wd
+    parts=${wd//[^\/]}
+    parts=${#parts}
+    # early return if there's nothing to trim
+    PROMPT_DIRTRIM=$(( $parts ))
+    if (( $parts < 2 )); then
+        return;
+    fi
+    # array of all of the parts of wd
+    IFS='/' read -ra parr <<< "${wd#/}"
+    # the number of columns required to display
+    # this directory component (and all after)
+    # doesn't handle wide/unicode well
+    # (in reverse order)
+    rcd=( $(( ${#parr[-1]} + 4 )) )
+    # for root /A/B/C/D shorts to ../D
+    if [[ $wd == '~'* ]]; then
+        # for else ~/A/B/C/D shorts to ~/../D
+        rcd=( $(( ${#parr[-1]} + 6 )) )
+    fi
+    # progressively compute 
+    for (( idx=${#parr[@]}-2; idx >= 0; --idx )); do
+        rcd+=( $(( ${rcd[-1]} + ${#parr[$idx]} + 1 )) )
+    done
+    if [[ wd = '~'* ]]; then
+        # ~/.../A/B -> ~/A/B
+        rcd[-2]=$(( ${rcd[-2]} - 4 ))
+        # displaying the tilde is required
+        rcd[-1]=${rcd[-2]}
+    else
+        # .../A/B -> /A/B
+        rcd[-1]=$(( ${rcd[-1]} - 3 ))
+    fi
+    # available columns after user, hostname, jobs
+    # and timestamp have been printed
+    avl=$(($COLUMNS - 24 - ${#USER} - ${#HOSTNAME} ))
+    for (( idx=${#rcd[@]}-1; idx >= 0; --idx )); do
+        if (( ${rcd[$idx]} < $avl )); then
+            PROMPT_DIRTRIM=$(( $idx + 1 ))
+            return;
+        fi
+    done
+    # if this happens its unsaveable anyway
+    PROMPT_DIRTRIM=1
+}
+
 _PS1() {
     echo -nE '$(_optlf)'
-    echo -nE '\[\e7$(printf "%*s" $( echo -e "$COLUMNS - 1" | bc ) "$(date "+%F %T")")\e8\]'
+    echo -nE '\[\e7$(printf "%*s" $(( $COLUMNS - 1 )) "$(date "+%F %T")")\e8\]'
     echo -nE '\[\e[1m\]\[\e[38;5;6m\]\u@\H'
     echo -nE '\[\e[0m\][\j]'
     echo -nE '\[\e[38;5;40m\]\w\[\e[0m\]'
@@ -69,7 +120,7 @@ _PS1() {
     echo -nE '\[\e[0m\]\$ '
 }
 
-PROMPT_COMMAND=_cpos
+PROMPT_COMMAND=_PRE_PROMPT
 
 PS1="$(_PS1)"
 
