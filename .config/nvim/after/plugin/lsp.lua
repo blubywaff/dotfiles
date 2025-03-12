@@ -1,49 +1,30 @@
-local lsp = require("lsp-zero")
-lsp.extend_lspconfig()
-
-lsp.preset("recommended")
-
 local lspconfig = require('lspconfig')
 
-lspconfig.clangd.setup({
-    cmd={'/usr/bin/clangd', '-header-insertion=never'}
-})
-
-lspconfig.racket_langserver.setup{
-    cmd={'racket', '-l', 'racket-langserver'}
-}
-
-lspconfig.tsserver.setup({
-    cmd = {'npx', '--', 'typescript-language-server', '--stdio'}
-})
+local lspc_def = lspconfig.util.default_config
+lspc_def.capabilities = vim.tbl_deep_extend(
+    'force',
+    lspc_def.capabilities,
+    require('cmp_nvim_lsp').default_capabilities()
+)
 
 local cmp = require('cmp')
 local cmp_select = {behaviour = cmp.SelectBehavior.Select}
 
-lsp.set_preferences({
-	sign_icons = {
-        error = '✘',
-        warn = '▲',
-        hint = '⚑',
-        info = 'ⓘ'
-    }
-})
-
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	-- ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-	-- ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['Tab'] = cmp.mapping.select_next_item(cmp_select),
-	-- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-	['Enter'] = cmp.mapping.confirm({ select = true }),
-	-- ['<C-Space>'] = cmp.mapping.complete(),
-})
-
 cmp.setup({
-    mapping = cmp.mapping.preset.insert(cmp_mappings),
+    mapping = cmp.mapping.preset.insert({
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+        -- ['<Enter>'] = cmp.mapping.confirm({ select = false }),
+    }),
     sources = {
         {name = 'nvim_lsp'}
-    }
+    },
+    snippet = {
+        expand = function(args)
+            vim.snippet.expand(args.body)
+        end,
+    },
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -65,14 +46,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
+lspconfig.clangd.setup({
+    cmd={'/usr/bin/clangd', '-header-insertion=never'}
+})
+
+lspconfig.racket_langserver.setup{
+    cmd={'racket', '-l', 'racket-langserver'}
+}
+
+lspconfig.ts_ls.setup({
+    cmd = {'npx', '--', 'typescript-language-server', '--stdio'}
+})
+
 require('mason').setup()
 require('mason-lspconfig').setup({
     ensure_installed = {'clangd', 'bashls', 'pyright', 'lua_ls', 'ltex'},
-    handlers = {
-        lsp.default_setup,
-        lua_ls = function()
-            local lua_opts = lsp.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
-        end,
-    },
 })

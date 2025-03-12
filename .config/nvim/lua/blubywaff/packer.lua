@@ -27,12 +27,10 @@ require("lazy").setup({
   spec = {
       {
           "nvim-telescope/telescope.nvim",
-          -- version = "0.1.0",
           dependencies = {"nvim-lua/plenary.nvim"},
       },
 
 	-- Colorschemes
-	"b4skyx/serenade",
 	"rose-pine/neovim",
 	name = 'rose-pine',
 
@@ -42,8 +40,6 @@ require("lazy").setup({
 	"nvim-treesitter/playground",
 	"theprimeagen/harpoon",
 	"mbbill/undotree",
-	-- "tpope/vim-fugitive",
-	"folke/neodev.nvim",
 	"simrat39/symbols-outline.nvim",
 
     -- LSP Support
@@ -62,31 +58,10 @@ require("lazy").setup({
     -- Snippets
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
-
-	"VonHeikemen/lsp-zero.nvim",
-	dependencies = {
-		-- LSP Support
-		"neovim/nvim-lspconfig",
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-
-		-- Autocompletion
-		"hrsh7th/nvim-cmp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"saadparwaiz1/cmp_luasnip",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-nvim-lua",
-
-		-- Snippets
-		"L3MON4D3/LuaSnip",
-		"rafamadriz/friendly-snippets",
-	},
-	"mfussenegger/nvim-jdtls",
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "rose-pine" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = false },
 })
