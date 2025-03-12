@@ -4,11 +4,11 @@
 sudo apt-get install -y ninja-build gettext cmake unzip curl
 
 # clone the repo, place in predictable directory name
-git clone --depth 1 --branch stable git@github.com:neovim/neovim.git neovim
+git clone --branch nightly git@github.com:neovim/neovim.git neovim
 cd neovim
 
 # update in case already cloned
-git checkout stable
+git checkout nightly
 
 # Maximum optimization, minimum debug
 # Make install user local instead of system wide
