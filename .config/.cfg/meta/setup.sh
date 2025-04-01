@@ -1,5 +1,6 @@
 #!/bin/bash
-mkdir -p $HOME/.config/.cfg/.git-dir/
-/bin/git clone --bare git@github.com:blubywaff/dotfiles.git
-/bin/git --git-dir=$HOME/.config/.cfg/.git-dir/ --work-tree=$HOME checkout -f
-/bin/git --git-dir=$HOME/.config/.cfg/.git-dir/ --work-tree=$HOME config status.showUntrackedFiles no
+gitdir="${HOME}/.config/.cfg/.git-dir/"
+mkdir -p ${gitdir}
+/bin/git clone --bare https://github.com/blubywaff/dotfiles.git ${gitdir}
+/bin/git --git-dir=${gitdir} --work-tree=${HOME} checkout -f
+/bin/git --git-dir=${gitdir} --work-tree=${HOME} config status.showUntrackedFiles no
