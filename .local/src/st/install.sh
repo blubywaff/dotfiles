@@ -11,7 +11,8 @@ if ! [ -d st ]; then
     git clone --depth 1 --branch master https://git.suckless.org/st || err 1 "Could not clone"
 fi
 cd st || err 1 "No source directory"
-pwd
+# restore before advance (b/c patches)
+git restore . || err 1 "Could not restore"
 git fetch || err 1 "Could not fetch"
 git checkout master || err 1 "Could not checkout"
 # apply patches
