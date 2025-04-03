@@ -1,0 +1,33 @@
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+# start a terminal
+bindsym $mod+Return exec st
+
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+i exec --no-startup-id i3-input
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+focus_follows_mouse no
+
+set $exit_mode "exit: [l]ogout [r]eboot [s]hutdown [e]scape"
+bindsym $mod+x mode $exit_mode
+
+mode $exit_mode {
+    bindsym e mode "default"
+    bindsym l exit
+    bindsym r exec "systemctl reboot"
+    bindsym s exec "systemctl poweroff"
+    bindsym p exec "systemctl suspend"
+    bindsym h exec "systemctl hibernate"
+}

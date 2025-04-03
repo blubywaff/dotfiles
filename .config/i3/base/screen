@@ -1,0 +1,8 @@
+# turn off x screen saver and let dpms handle it
+exec xset s off
+# change dpms timings 5 min to turn off screen, 15 min to suspend
+exec xset dpms 300 900 0
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000
+bindsym $mod+Escape exec i3lock -c 000000

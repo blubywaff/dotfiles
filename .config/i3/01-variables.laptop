@@ -1,7 +1,0 @@
-set $font_size 10
-# probably shouldn't be in a variables file, but I'll sort that out later
-# turn off x screen saver and let dpms handle it
-exec xset s off
-# change dpms timings 5 min to turn off screen, 15 min to suspend
-exec xset dpms 300 900 0
-exec "xinput set-prop 10 324 1 && xinput set-prop 10 332 1"
