@@ -58,6 +58,10 @@ lspconfig.ts_ls.setup({
     cmd = {'npx', '--', 'typescript-language-server', '--stdio'}
 })
 
+lspconfig.pyright.setup({
+    cmd = {'pyright-langserver', '--stdio'}
+})
+
 require('mason').setup()
 require('mason-lspconfig').setup({
     ensure_installed = {'clangd', 'bashls', 'pyright', 'lua_ls', 'ltex'},

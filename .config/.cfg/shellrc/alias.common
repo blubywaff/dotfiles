@@ -29,7 +29,11 @@ git() {
     done
     case $1 in
         "top")
-            cd "$(command "${pre[@]}" rev-parse --show-toplevel)"
+            if [[ -t 1 ]]; then
+                cd "$(command "${pre[@]}" rev-parse --show-toplevel)"
+            else
+                command ${pre[@]} rev-parse --show-toplevel
+            fi
             ;;
         "ministat")
             ;;

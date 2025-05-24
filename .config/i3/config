@@ -3,6 +3,7 @@ set $right l
 set $left h
 set $down j
 set $up k
+set $font_size 10
 
 include `hostname`.conf
-include main/*
+include base/*

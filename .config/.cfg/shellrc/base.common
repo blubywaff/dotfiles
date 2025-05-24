@@ -58,6 +58,13 @@ _optlf() {
     fi
 }
 
+_venv() {
+    if [ -z ${VIRTUAL_ENV} ]; then
+        return
+    fi
+    printf "($(basename ${VIRTUAL_ENV}))"
+}
+
 _PRE_PROMPT() {
     _cpos
 
@@ -83,7 +90,7 @@ _PRE_PROMPT() {
         # for else ~/A/B/C/D shorts to ~/../D
         rcd=( $(( ${#parr[-1]} + 6 )) )
     fi
-    # progressively compute 
+    # progressively compute
     for (( idx=${#parr[@]}-2; idx >= 0; --idx )); do
         rcd+=( $(( ${rcd[-1]} + ${#parr[$idx]} + 1 )) )
     done
@@ -109,6 +116,7 @@ _PRE_PROMPT() {
     PROMPT_DIRTRIM=1
 }
 
+
 _PS1() {
     echo -nE '$(_optlf)'
     echo -nE '\[\e7$(printf "%*s" $(( $COLUMNS - 1 )) "$(date "+%F %T")")\e8\]'
@@ -116,9 +124,11 @@ _PS1() {
     echo -nE '\[\e[0m\][\j]'
     echo -nE '\[\e[38;5;40m\]\w\[\e[0m\]'
     echo -nE '\n'
-    echo -nE '$(_gitbranch)'
+    echo -nE '$(_venv)$(_gitbranch)'
     echo -nE '\[\e[0m\]\$ '
 }
+
+VIRTUAL_ENV_DISABLE_PROMPT=1
 
 PROMPT_COMMAND=_PRE_PROMPT
 
