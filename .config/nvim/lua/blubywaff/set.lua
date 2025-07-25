@@ -45,8 +45,4 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
 -- listchars=eol:§,tab:¤›,extends:»,precedes:«,nbsp:‡,trail:×
 vim.cmd [[ set listchars=tab:¤›,extends:»,precedes:«,nbsp:‡,trail:× ]]
 vim.cmd [[ set list ]]
--- vim.cmd [[ set fileformats=unix ]]
-vim.cmd([[
-  syntax match ExtraCR /\%x0d/ conceal cchar=⏎
-  set conceallevel=2
-]])
+vim.cmd [[ set fileformats=unix ]]

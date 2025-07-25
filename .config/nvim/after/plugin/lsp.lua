@@ -64,5 +64,5 @@ lspconfig.pyright.setup({
 
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = {'clangd', 'bashls', 'pyright', 'lua_ls', 'ltex'},
+    --ensure_installed = {'bashls', 'pyright', 'lua_ls', 'ltex'},
 })

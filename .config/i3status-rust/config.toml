@@ -1,0 +1,61 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "modern"
+[theme.overrides]
+
+[icons]
+icons = "material-nf"
+[icons.overrides]
+
+[[block]]
+block = "net"
+format = " $icon $speed_down.eng(prefix:K) ^icon_net_down $speed_up.eng(prefix:K) ^icon_net_up "
+
+[[block]]
+block = "cpu"
+info_cpu = 20
+warning_cpu = 50
+critical_cpu = 90
+format = " $icon $utilization "
+
+[[block]]
+block = "memory"
+interval = 10
+format = " $icon $mem_used_percents.eng(w:2) "
+warning_mem = 70
+critical_mem = 90
+
+[[block]]
+block = "sound"
+headphones_indicator = true
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "backlight"
+minimum = 5
+maximum = 100
+root_scaling = 1.3
+missing_format = ""
+
+[[block]]
+block = "battery"
+interval = 1
+full_threshold = 100
+empty_threshold = 0
+info = 95
+good = 60
+warning = 30
+critical = 15
+format = " $icon $percentage $time_remaining "
+full_format = " $icon {$time_remaining|FULL} "
+missing_format = ""
+charging_format = " $icon $percentage $time_remaining "
+not_charging_format = "$icon $percentage "
+
+[[block]]
+block = "time"
+interval = 1
+format = " $timestamp.datetime(f:'%T %a %d-%m-%Y',l:ja_JP) "
