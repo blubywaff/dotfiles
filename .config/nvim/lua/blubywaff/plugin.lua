@@ -1,4 +1,3 @@
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -35,12 +34,12 @@ require("lazy").setup({
 	name = 'rose-pine',
 
 	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
+	build = ":TSUpdate all",
 	"nvim-treesitter/nvim-treesitter-context",
 	"nvim-treesitter/playground",
 	"theprimeagen/harpoon",
 	"mbbill/undotree",
-	"simrat39/symbols-outline.nvim",
+	"hedyhli/outline.nvim",
 
     -- LSP Support
     "neovim/nvim-lspconfig",
@@ -51,13 +50,8 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
-    "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-nvim-lua",
-
-    -- Snippets
-    "L3MON4D3/LuaSnip",
-    "rafamadriz/friendly-snippets",
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
