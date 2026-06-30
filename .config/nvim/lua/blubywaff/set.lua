@@ -1,5 +1,5 @@
 -- theme & transparency
-vim.cmd.colorscheme("torte")
+vim.cmd.colorscheme("default")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
@@ -71,7 +71,7 @@ vim.opt.encoding = "UTF-8"                         -- Set encoding
 -- Folding settings
 vim.opt.foldmethod = "expr"                             -- Use expression for folding
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use treesitter for folding
-vim.opt.foldlevel = 0                                  -- Start with all folds open
+vim.opt.foldlevel = 99                                 -- Start with all folds open
 
 -- Split behavior
 vim.opt.splitbelow = true                          -- Horizontal splits go below

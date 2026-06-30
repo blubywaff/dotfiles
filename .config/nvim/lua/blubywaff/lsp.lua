@@ -14,6 +14,7 @@ vim.lsp.enable('gopls')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('svelte')
 vim.lsp.enable('clangd')
+vim.lsp.enable('gdscript')
 
 -- LSP keymaps 
 vim.api.nvim_create_autocmd('LspAttach', {
